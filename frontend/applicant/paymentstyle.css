@@ -1,0 +1,58 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 30px;
+}
+
+.container {
+  border: 1px solid #ccc;
+  padding: 30px;
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  position: relative;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.payment-info p {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.logo img {
+  width: 200px;
+  border: 0px solid #ccc;
+}
+
+.form-area {
+  margin-top: 40px;
+  max-width: 400px;
+}
+
+.form-area label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-area input,
+.form-area select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.pay-btn {
+  padding: 12px 40px;
+  background-color: #45a049;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
