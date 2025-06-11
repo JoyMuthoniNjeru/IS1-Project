@@ -9,81 +9,102 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <img src="logo.png" alt="Logo">
-            </div>
+            <div class="login-container">
+                <img src="images/logo.png" alt="Logo">
+            </div><br>
             <h1>Booking Page</h1>
         </header>
 
         <section class="booking-form">
             <h2>General Information</h2>
+            <p>Please fill in the form below to book your driving test.</p><br><br>
             <form>
                 <div class="form-group">
                     <label for="driving-school">Driving School</label><br>
                     <input type="text" id="driving-school" name="driving-school"><br><br>
                 </div>
                 
-                <div class="form-group">
-                    <label for="id-number">ID Number</label><br>
-                    <input type="text" id="id-number" name="id-number"><br><br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id-number">ID Number</label><br>
+                        <input type="text" id="id-number" name="id-number"><br><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label><br>
+                        <input type="text" id="full-name" name="full-name"><br><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pdl-number">PDL Number</label><br>
+                        <input type="text" id="pdl-number" name="pdl-number"><br><br>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="full-name">Full Name</label><br>
-                    <input type="text" id="full-name" name="full-name"><br><br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">Gender</label><br>
+                        <select id="gender" name="gender">
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label><br>
+                        <input type="date" id="dob" name="dob"><br><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label><br>
+                        <input type="text" id="nationality" name="nationality"><br><br>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="pdl-number">PDL Number</label><br>
-                    <input type="text" id="pdl-number" name="pdl-number"><br><br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country of Residence</label><br>
+                        <input type="text" id="country" name="country"><br><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label><br>
+                        <input type="tel" id="mobile" name="mobile"><br><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" name="email"><br><br>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="gender">Gender</label><br>
-                    <select id="gender" name="gender">
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                    </select><br><br>
-                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="license">Applied License Type</label><br>
+                        <select id="license" name="license">
+                            <option value="light-vehicle">Light Vehicle</option>
+                            <option value="heavy-vehicle">Heavy Vehicle</option>
+                            <option value="motorcycle">Motorcycle</option>
+                        </select><br><br>
+                    </div>
 
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label><br>
-                    <input type="date" id="dob" name="dob"><br><br>
-                </div>
+                    <div class="form-group">
+                        <label for="date-test">Date of Test</label><br>
+                        <input type="date" id="date-test" name="date-test"><br><br>
+                    </div>
 
-                <div class="form-group">
-                    <label for="nationality">Nationality</label><br>
-                    <input type="text" id="nationality" name="nationality"><br><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="country">Country of Residence</label><br>
-                    <input type="text" id="country" name="country"><br><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="mobile">Mobile Number</label><br>
-                    <input type="tel" id="mobile" name="mobile"><br><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label><br>
-                    <input type="email" id="email" name="email"><br><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="license">Applied License Type</label><br>
-                    <input type="text" id="license" name="license"><br><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="date-test">Date of Test</label><br>
-                    <input type="date" id="date-test" name="date-test"><br><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="time-slot">Time Slot</label><br>
-                    <input type="text" id="time-slot" name="time-slot"><br><br>
+                    <div class="form-group">
+                        <label for="timeslot">Time Slot</label><br>
+                        <select id="timeslot" name="timeslot">
+                            <option value="8-10">8.00 - 10.00 AM</option>
+                            <option value="10-12">10.00 - 12.00 PM</option>
+                            <option value="12-2">12.00 - 2.00 PM</option>
+                            <option value="2-4">2.00 - 4.00 PM</option>
+                            <option value="4-6">4.00 - 6.00 PM</option>
+                        </select><br><br>
+                    </div>
                 </div>
 
                 <div class="form-group">
