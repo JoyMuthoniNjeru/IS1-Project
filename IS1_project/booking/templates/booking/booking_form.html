@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Page</title>
+</head>
+<body>
+    <h2>Driving Test Booking</h2>
+    <form method="post">
+        {% csrf_token %}
+
+        <h3>Applicant Details</h3>
+        {{ applicant_form.as_p }}
+
+        <h3>Booking Details</h3>
+        {{ booking_form.as_p }}
+
+        <h3>Payment Details</h3>
+        {{ payment_form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
