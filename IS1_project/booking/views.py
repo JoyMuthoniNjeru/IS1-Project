@@ -1,31 +1,23 @@
 from django.shortcuts import render, redirect
-from .forms import ApplicantForm, BookingForm, PaymentForm
+from .models import Booking
 
 def booking_view(request):
     if request.method == 'POST':
-        applicant_form = ApplicantForm(request.POST)
-        booking_form = BookingForm(request.POST)
-        payment_form = PaymentForm(request.POST)
+        id_number = request.POST.get('id_number')
+        name = request.POST.get('name')
+        pdl_number = request.POST.get('pdl_number')
+        phone_number = request.POST.get('phone_number')
+        country = request.POST.get('country')
 
-        if applicant_form.is_valid() and booking_form.is_valid() and payment_form.is_valid():
-            applicant = applicant_form.save()
-            booking = booking_form.save(commit=False)
-            booking.applicant = applicant
-            booking.save()
+        # Save to database
+        Booking.objects.create(
+            id_number=id_number,
+            name=name,
+            pdl_number=pdl_number,
+            phone_number=phone_number,
+            country=country
+        )
 
-            payment = payment_form.save(commit=False)
-            payment.applicant = applicant
-            payment.save()
+        return redirect('booking_page')  # or redirect to success/payment
 
-            return redirect('booking_success')  # you'll create this page later
-    else:
-        applicant_form = ApplicantForm()
-        booking_form = BookingForm()
-        payment_form = PaymentForm()
-
-    return render(request, 'booking/booking_form.html', {
-        'applicant_form': applicant_form,
-        'booking_form': booking_form,
-        'payment_form': payment_form
-    })
-
+    return render(request, 'booking/booking_form.html', {'success': True})

@@ -13,14 +13,14 @@ class Applicant(models.Model):
 
 
 class Booking(models.Model):
-    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    test_date = models.DateField()
-    test_centre = models.CharField(max_length=100)
-    time_slot = models.CharField(max_length=50)
-    status = models.CharField(max_length=20, default="Pending")  # Approved / Rejected
+    id_number = models.CharField(max_length=10)
+    name = models.CharField(max_length=100)
+    pdl_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=15)
+    email = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.applicant.name} - {self.test_date}"
+        return f"{self.name} - {self.id_number}"
 
 
 class Payment(models.Model):
