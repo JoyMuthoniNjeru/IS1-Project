@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Applicant, Booking, Payment
+from .models import Booking
 
-admin.site.register(Applicant)
 admin.site.register(Booking)
-admin.site.register(Payment)
+
 

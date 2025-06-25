@@ -2,7 +2,7 @@ from django.db import models
 
 class Booking(models.Model):
     driving_school = models.CharField(max_length=100)
-    id_number = models.CharField(max_length=10)
+    id_number = models.CharField(max_length=10, null=True, blank=True)
     name = models.CharField(max_length=100)
     pdl_number = models.CharField(max_length=20)
     gender = models.CharField(max_length=10)

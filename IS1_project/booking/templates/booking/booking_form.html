@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'booking/bookingstyle.css' %}">
 </head>
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         {% csrf_token %}
     <div class="container">
         <header>
@@ -23,7 +23,7 @@
             <p>Please fill in the form below to book your driving test.</p><br><br>
                 <div class="form-group">
                     <label for="driving-school">Driving School</label><br>
-                        <select id="drivingschool" name="drivingschool">
+                        <select id="driving_school" name="driving_school">
                             <option value="">-- select one --</option>
                             <option value="aakenya">AA Kenya</option>
                             <option value="rockydrivingschool ">Rocky Driving School </option>
@@ -36,18 +36,18 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="id-number">ID Number</label><br>
-                        <input type="text" id="idNumber" name="idNumber" required><br><br>
+                        <label for="id_number">ID Number</label><br>
+                        <input type="text" id="id_number" name="id_number" required><br><br>
                     </div>
 
                     <div class="form-group">
-                        <label for="full-name">Full Name</label><br>
-                        <input type="text" id="full-name" name="full-name" required><br><br>
+                        <label for="name">Full Name</label><br>
+                        <input type="text" id="name" name="name" required><br><br>
                     </div>
 
                     <div class="form-group">
-                        <label for="pdl-number">PDL Number</label><br>
-                        <input type="text" id="pdl-number" name="pdl-number" required><br><br>
+                        <label for="pdl_number">PDL Number</label><br>
+                        <input type="text" id="pdl_number" name="pdl_number" required><br><br>
                     </div>
                 </div>
 
@@ -63,8 +63,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="dob">Date of Birth</label><br>
-                        <input type="date" id="dob" name="dob" required><br><br>
+                        <label for="date_of_birth">Date of Birth</label><br>
+                        <input type="date" id="date_of_birth" name="date_of_birth" required><br><br>
                     </div>
 
                     <div class="form-group">
@@ -521,7 +521,7 @@
 
                     <div class="form-group">
                         <label for="mobile">Mobile Number</label><br>
-                        <input type="tel" id="mobile" name="mobile" required><br><br>
+                        <input type="text" id="mobile" name="mobile" required><br><br>
                     </div>
 
                     <div class="form-group">
@@ -532,8 +532,8 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="license">Applied License Type</label><br>
-                        <select id="license" name="license">
+                        <label for="license_type">Applied License Type</label><br>
+                        <select id="license_type" name="license_type">
                             <option value="">-- select one --</option>
                             <option value="class-a">Class A</option>
                             <option value="class-b">Class B</option>
@@ -542,13 +542,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="date-test">Date of Test</label><br>
-                        <input type="date" id="date-test" name="date-test" required><br><br>
+                        <label for="test_date">Date of Test</label><br>
+                        <input type="date" id="test_date" name="test_date" required><br><br>
                     </div>
 
                     <div class="form-group">
-                        <label for="timeslot">Time Slot</label><br>
-                        <select id="timeslot" name="timeslot">
+                        <label for="time_slot">Time Slot</label><br>
+                        <select id="time_slot" name="time_slot">
                             <option value="8-10">8.00 - 10.00 AM</option>
                             <option value="10-12">10.00 - 12.00 PM</option>
                             <option value="12-2">12.00 - 2.00 PM</option>
@@ -559,8 +559,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="upload">Upload Document</label><br>
-                    <input type="file" id="upload" name="upload" required><br><br>
+                    <label for="document">Upload Document</label><br>
+                    <input type="file" id="document" name="document" required><br><br>
                 </div>
 
                 <div class="form-actions"><br>
