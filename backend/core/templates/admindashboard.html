@@ -1,0 +1,50 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrator Dashboard</title>
+  <link rel="stylesheet" href="{% static 'administrator/adminstyles.css' %}">
+</head>
+<body>
+  <div class="dashboard-header">
+    <h1>Administrator Dashboard</h1>
+    <p class="welcome-message">Welcome, <strong>{{ request.user.username }}</strong>!</p>
+    <div class="logo-container">
+      <img src="{% static 'administrator/images/ntsaLogo.png' %}" alt="NTSA Logo">
+    </div>
+  </div>
+
+  <div class="top-controls">
+    <a href="{% url 'adminslotconfig' %}" class="primary-btn">Configure Slots</a>
+    <div class="filters">
+      <label>Date: <input type="date"></label>
+      <label>Centre: 
+        <select>
+          <option>Nairobi HQ</option>
+          <option>Mombasa</option>
+          <option>Kisumu</option>
+        </select>
+      </label>
+      <button class="search-btn">Search</button>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Slot Time</th>
+        <th>Applicant Name</th>
+        <th>Phone</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="4" class="placeholder">No data available</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

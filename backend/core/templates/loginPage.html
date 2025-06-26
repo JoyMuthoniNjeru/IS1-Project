@@ -1,20 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Page</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="{% static 'login/loginstyles.css' %}" />
 </head>
 <body>
   <div class="page-wrapper">
     <div class="logo-section">
-      <img src="images/ntsaLogo.png" alt="NTSA Logo" class="logo-img" />
+      <img src="{% static 'login/images/ntsaLogo.png' %}" alt="NTSA Logo" class="logo-img" />
     </div>
 
     <div class="login-container">
       <h1>Log In</h1>
-      <form id="loginForm" action="/login" method="post">
+      <form id="loginForm" action="/login/" method="post">
         {% csrf_token %}
         <label for="email">Email Address/ID Number</label>
         <input type="text" id="email" name="email" required />
@@ -35,5 +36,12 @@
       </form>
     </div>
   </div>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 </body>
 </html>

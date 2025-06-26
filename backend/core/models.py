@@ -19,6 +19,9 @@ class TestSlot(models.Model):
     max_applicants = models.PositiveIntegerField()
     current_load = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return f"{self.date} at {self.time} - {self.center.name}"
+
     STATUS_CHOICES = [
         ('open', 'Open'),
         ('full', 'Full'),
@@ -46,10 +49,10 @@ class UserProfile(models.Model):
         ('manager', 'Test Centre Manager'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=USER_ROLES)
+    user_type = models.CharField(max_length=20, choices=USER_ROLES)
 
     def __str__(self):
-        return f"{self.user.username} - {self.role}"
+        return f"{self.user.username} - {self.user_type}"
 
 # Automatically create or update a UserProfile when a User is saved
 @receiver(post_save, sender=User)
