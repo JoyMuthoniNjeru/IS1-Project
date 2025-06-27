@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Test Manager Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'testcentre_mgmt/dashboardstyle.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <div class="header">
+    <h1>Test Manager Dashboard</h1>
+  </div>
+
+  <h2>Test Centre Configuration</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Test Centre</th>
+        <th>Location</th>
+        <th>Capacity</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for centre in centres %}
+      <tr>
+        <td>{{ centre.name }}</td>
+        <td>{{ centre.location }}</td>
+        <td>{{ centre.capacity }}</td>
+        <td>
+          <a href="{% url 'testcentre_mgmt:edit_test_centre' centre.pk %}">
+            <button class="edit-btn">Edit</button>
+          </a>
+          <a href="{% url 'testcentre_mgmt:delete_test_centre' centre.pk %}">
+            <button class="edit-btn">Delete</button>
+          </a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No test centres available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'testcentre_mgmt:add_test_centre' %}">
+    <button class="add-centre-btn">Add new centre</button>
+  </a>
+</div>
+{% endblock %}
