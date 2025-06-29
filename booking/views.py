@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Booking
 
+
 def booking_view(request):
     if request.method == 'POST':
         
-        print("POST DATA:", request.POST)  # Add this
+        print("POST DATA:", request.POST)  
         print("FILES:", request.FILES) 
         print("FORM DATA:", request.POST)
         
@@ -14,7 +15,7 @@ def booking_view(request):
         print("ID NUMBER:", id_number)     
 
 
-        Booking.objects.create(
+        booking = Booking.objects.create(
             id_number=request.POST.get('id_number'),
             name=request.POST.get('name'),
             pdl_number=request.POST.get('pdl_number'),
@@ -30,6 +31,6 @@ def booking_view(request):
             document=request.FILES.get('document')
         )
 
-        return redirect('booking_page')
+        return redirect(f'/payment/?booking_id={booking.id}')
 
     return render(request, 'booking/booking_form.html')
