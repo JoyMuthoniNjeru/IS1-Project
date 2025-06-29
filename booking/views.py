@@ -11,9 +11,8 @@ def booking_view(request):
     
 
         id_number = request.POST.get('id_number')
-        print("ID NUMBER:", id_number)     # Add this
+        print("ID NUMBER:", id_number)     
 
-        # ⛔ If id_number is still None or '', there's something wrong with form names or form submission
 
         Booking.objects.create(
             id_number=request.POST.get('id_number'),

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Successful</title>
+  <link rel="stylesheet" href="{% static 'payment/paymentstyle.css' %}">
+  <style>
+    .success-container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 40px;
+      border: 2px solid #4CAF50;
+      background-color: #f9fff9;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 128, 0, 0.1);
+    }
+
+    .success-container h1 {
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    .success-container p {
+      font-size: 18px;
+      color: #444;
+    }
+
+    .logo {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="{% static 'payment/images/logo.png' %}" alt="Logo">
+    </div>
+
+    <div class="success-container">
+      <h1>Payment Successful!</h1>
+      <p>Thank you for your payment. Your driving test booking has been confirmed.</p>
+      <p>You will receive further details via email or SMS shortly.</p>
+    </div>
+  </div>
+</body>
+</html>
+

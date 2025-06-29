@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Page</title>
+  <link rel="stylesheet" href="{% static 'payment/paymentstyle.css' %}">
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-bar">
+      <div class="payment-info">
+        <p><strong>Payment Page</strong></p>
+        <p>Bill: KES 1050</p>
+      </div>
+      <div class="logo">
+        <img src="{% static 'payment/images/logo.png' %}" alt="Logo">
+      </div>
+    </div>
+
+    <div class="form-area">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="pay-btn">Pay</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
