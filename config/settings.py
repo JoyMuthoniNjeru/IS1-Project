@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'testcentre_mgmt',  
     'booking',  
-    'payment',        
+    'payment',  
+    'core',      
 ]
 
 MIDDLEWARE = [

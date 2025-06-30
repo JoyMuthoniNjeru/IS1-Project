@@ -22,4 +22,6 @@ urlpatterns = [
     path('booking/', include('booking.urls')),  
     path('testcentre/', include('testcentre_mgmt.urls', namespace='testcentre_mgmt')),
     path('payment/', include('payment.urls', namespace='payment')),
+    path('', include('core.urls')),
+
 ]

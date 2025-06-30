@@ -21,7 +21,7 @@ def login_view(request):
                 if role == 'admin':
                     return redirect('/admin-dashboard/')
                 elif role == 'manager':
-                    return redirect('/manager-dashboard/')
+                    return redirect('/testcentre/test-centres/')
                 elif role == 'applicant':
                     return redirect('/booking/')
                 else:

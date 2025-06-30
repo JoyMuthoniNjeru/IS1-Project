@@ -19,6 +19,7 @@ class TestSlot(models.Model):
     max_applicants = models.PositiveIntegerField()
     current_load = models.PositiveIntegerField(default=0)
 
+
     def __str__(self):
         return f"{self.date} at {self.time} - {self.center.name}"
 
