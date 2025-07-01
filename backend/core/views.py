@@ -5,6 +5,22 @@ from .models import UserProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import TestSlotForm
+from .forms import TestCentreForm
+from .models import TestCentre
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def add_test_centre(request):
+    if request.method == 'POST':
+        form = TestCentreForm(request.POST)
+        if form.is_valid():
+            test_centre = form.save(commit=False)
+            test_centre.manager = request.user  # 👈 auto-assign logged-in manager
+            test_centre.save()
+            return redirect('testcentre_mgmt:test_centre_dashboard')
+    else:
+        form = TestCentreForm()
+    return render(request, 'testcentre_mgmt/form.html', {'form': form, 'title': 'Add Test Centre'})
 
 def login_view(request):
     if request.method == 'POST':

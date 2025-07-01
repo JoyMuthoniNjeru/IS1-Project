@@ -6,7 +6,10 @@ from django.dispatch import receiver
 # Represents a driving test center
 class TestCenter(models.Model):
     name = models.CharField(max_length=100)
-    location = models.TextField()
+    location = models.CharField(max_length=100)
+    capacity = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
