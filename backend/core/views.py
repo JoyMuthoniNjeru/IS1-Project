@@ -8,6 +8,7 @@ from .forms import TestSlotForm
 from .forms import TestCenterForm
 from .models import TestCenter
 from django.contrib.auth.decorators import login_required
+from .models import Booking
 
 @login_required
 def add_test_center(request):
@@ -75,32 +76,36 @@ def login_view(request):
 @login_required
 def admin_dashboard(request):
     if hasattr(request.user, 'userprofile') and request.user.userprofile.user_type == 'admin':
-        return render(request, 'admindashboard.html')
+        bookings = Booking.objects.all().select_related('user', 'slot', 'slot__center')  # Get all confirmed bookings
+        return render(request, 'admindashboard.html', {'bookings': bookings})
     else:
         return HttpResponse("Unauthorized", status=401)
-    
-from .models import TestSlot, TestCenter  # Make sure this is imported at the top
 
 @login_required
 def slot_configuration(request):
-    if not hasattr(request.user, 'userprofile') or request.user.userprofile.user_type != 'admin':
-        return HttpResponse("Unauthorized", status=401)
-
-    centers = TestCenter.objects.all()  # all centers created by any manager
-
+    
     if request.method == 'POST':
         form = TestSlotForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Test slot created successfully.')
-            return redirect('admin_dashboard')
+            return redirect('slot_configuration')  # or 'admin_dashboard' if preferred
     else:
         form = TestSlotForm()
 
-    return render(request, 'adminslotconfig.html', {
-        'form': form,
-        'centers': centers  # 🟢 we send them to the template
-    })
+    return render(request, 'adminslotconfig.html', {'form': form})
+
+@login_required
+def add_slot(request):
+    if request.method == 'POST':
+        form = TestSlotForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Slot added successfully.')
+            return redirect('slot_configuration')
+    else:
+        form = TestSlotForm()
+    return render(request, 'adminslotform.html', {'form': form, 'title': 'Add Test Slot'})
 
 def applicant_dashboard(request):
     return HttpResponse("Applicant Dashboard")

@@ -16,5 +16,6 @@ class Booking(models.Model):
     time_slot = models.CharField(max_length=30)
     document = models.FileField(upload_to='uploads/')
 
+
     def __str__(self):
         return f"{self.name} - {self.id_number}"
