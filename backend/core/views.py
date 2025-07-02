@@ -83,28 +83,33 @@ def admin_dashboard(request):
 
 @login_required
 def slot_configuration(request):
+
+    manager_centers = TestCenter.objects.filter(manager__userprofile__user_type='manager')
     
     if request.method == 'POST':
-        form = TestSlotForm(request.POST)
+        form = TestSlotForm(request.POST, manager_centers=manager_centers)
         if form.is_valid():
             form.save()
             messages.success(request, 'Test slot created successfully.')
-            return redirect('slot_configuration')  # or 'admin_dashboard' if preferred
+            return redirect('slot_configuration')
     else:
-        form = TestSlotForm()
+        form = TestSlotForm(manager_centers=manager_centers)
 
     return render(request, 'adminslotconfig.html', {'form': form})
 
 @login_required
 def add_slot(request):
+    manager_centers = TestCenter.objects.filter(manager__userprofile__user_type='manager')
+
     if request.method == 'POST':
-        form = TestSlotForm(request.POST)
+        form = TestSlotForm(request.POST, manager_centers=manager_centers)
         if form.is_valid():
             form.save()
             messages.success(request, 'Slot added successfully.')
             return redirect('slot_configuration')
     else:
-        form = TestSlotForm()
+        form = TestSlotForm(manager_centers=manager_centers)
+
     return render(request, 'adminslotform.html', {'form': form, 'title': 'Add Test Slot'})
 
 def applicant_dashboard(request):
