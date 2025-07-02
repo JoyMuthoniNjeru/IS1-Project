@@ -21,10 +21,11 @@
       <button class="primary-btn">Admin Dashboard</button>
     </a>
     <label class="centre-select">Centre:
-      <select>
-        <option>Nairobi HQ</option>
-        <option>Mombasa</option>
-        <option>Kisumu</option>
+      <select name="center" required>
+        <option value="">-- Select Test Center --</option>
+        {% for center in centers %}
+          <option value="{{ center.id }}">{{ center.name }} - {{ center.location }}</option>
+        {% endfor %}
       </select>
     </label>
   </div>

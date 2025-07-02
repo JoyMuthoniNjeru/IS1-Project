@@ -5,22 +5,27 @@ from .models import UserProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import TestSlotForm
-from .forms import TestCentreForm
-from .models import TestCentre
+from .forms import TestCenterForm
+from .models import TestCenter
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def add_test_centre(request):
+def add_test_center(request):
     if request.method == 'POST':
-        form = TestCentreForm(request.POST)
+        form = TestCenterForm(request.POST)
         if form.is_valid():
             test_centre = form.save(commit=False)
             test_centre.manager = request.user  # 👈 auto-assign logged-in manager
             test_centre.save()
             return redirect('testcentre_mgmt:test_centre_dashboard')
     else:
-        form = TestCentreForm()
+        form = TestCenterForm()
     return render(request, 'testcentre_mgmt/form.html', {'form': form, 'title': 'Add Test Centre'})
+
+from django.contrib.auth.models import User
+from .models import UserProfile
+
+from django.contrib.auth.models import User
 
 def login_view(request):
     if request.method == 'POST':
@@ -28,24 +33,42 @@ def login_view(request):
         password = request.POST.get('password')
         user_type = request.POST.get('user_type')
 
+        # Try to authenticate existing user
         user = authenticate(request, username=email_or_id, password=password)
-        if user is not None:
-            login(request, user)
-            try:
-                role = user.userprofile.user_type
 
-                if role == 'admin':
-                    return redirect('/admin-dashboard/')
-                elif role == 'manager':
-                    return redirect('/testcentre/test-centres/')
-                elif role == 'applicant':
-                    return redirect('/booking/')
-                else:
-                    messages.error(request, 'Unknown user role.')
-            except UserProfile.DoesNotExist:
-                messages.error(request, 'User profile not found.')
+        if user is None:
+            # Create new user if not found (for demo purposes)
+            if not User.objects.filter(username=email_or_id).exists():
+                user = User.objects.create_user(username=email_or_id, password=password)
+                user.save()
+
+                # Create profile and assign role
+                UserProfile.objects.create(user=user, user_type=user_type)
             else:
-                messages.error(request, 'Invalid login credentials.')
+                # User exists but wrong password → show error
+                messages.error(request, "Incorrect password for existing user.")
+                return redirect('/login/')
+        else:
+            # Ensure the user has a UserProfile
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            if created:
+                profile.user_type = user_type
+                profile.save()
+
+        # Log in the user
+        login(request, user)
+
+        # Redirect based on role
+        role = user.userprofile.user_type
+        if role == 'admin':
+            return redirect('/admin-dashboard/')
+        elif role == 'manager':
+            return redirect('/testcentre/test-centres/')
+        elif role == 'applicant':
+            return redirect('/booking/')
+        else:
+            messages.error(request, 'Unknown user role.')
+            return redirect('/login/')
 
     return render(request, 'loginPage.html')
 
@@ -56,8 +79,15 @@ def admin_dashboard(request):
     else:
         return HttpResponse("Unauthorized", status=401)
     
+from .models import TestSlot, TestCenter  # Make sure this is imported at the top
+
 @login_required
 def slot_configuration(request):
+    if not hasattr(request.user, 'userprofile') or request.user.userprofile.user_type != 'admin':
+        return HttpResponse("Unauthorized", status=401)
+
+    centers = TestCenter.objects.all()  # all centers created by any manager
+
     if request.method == 'POST':
         form = TestSlotForm(request.POST)
         if form.is_valid():
@@ -66,7 +96,11 @@ def slot_configuration(request):
             return redirect('admin_dashboard')
     else:
         form = TestSlotForm()
-    return render(request, 'adminslotconfig.html', {'form': form})
+
+    return render(request, 'adminslotconfig.html', {
+        'form': form,
+        'centers': centers  # 🟢 we send them to the template
+    })
 
 def applicant_dashboard(request):
     return HttpResponse("Applicant Dashboard")

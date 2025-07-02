@@ -15,7 +15,8 @@
 
     <div class="login-container">
       <h1>Log In</h1>
-      <form id="loginForm" action="/login/" method="post">
+      <form id="loginForm" action="{% url 'login' %}" method="post">
+
         {% csrf_token %}
         <label for="email">Email Address/ID Number</label>
         <input type="text" id="email" name="email" required />
@@ -24,12 +25,13 @@
         <input type="password" id="password" name="password" required />
 
         <label for="user-type">Select User</label>
-        <select id="user-type" name="user-type" required>
+        <select id="user-type" name="user_type" required>
           <option value="">-- Select User --</option>
           <option value="applicant">Applicant</option>
           <option value="admin">Administrator</option>
           <option value="manager">Test Centre Manager</option>
         </select>
+
 
         <button type="submit">Log In</button>
         <p class="error-message" id="errorMessage"></p>
