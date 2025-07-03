@@ -2,18 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from testcentre_mgmt.models import TestCentre
+from testcenter_mgmt.models import TestCenter
 
-# Represents a driving test center
-class TestCenter(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
-    capacity = models.PositiveIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    manager = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 # Represents a driving test slot
 class TestSlot(models.Model):
@@ -51,7 +41,7 @@ class UserProfile(models.Model):
     USER_ROLES = [
         ('applicant', 'Applicant'),
         ('admin', 'Administrator'),
-        ('manager', 'Test Centre Manager'),
+        ('manager', 'Test Center Manager'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=20, choices=USER_ROLES)

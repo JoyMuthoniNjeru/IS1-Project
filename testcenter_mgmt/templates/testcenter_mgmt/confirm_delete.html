@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'testcenter_mgmt/dashboardstyle.css' %}">
+
+<div class="dashboard-container">
+  <div class="header">
+    <h1>Delete Test Center</h1>
+    <div class="logo-container">
+      <img src="{% static 'testcenter_mgmt/images/logo.png' %}" alt="Logo" class="logo"/>
+    </div>
+  </div>
+
+  <p>Are you sure you want to delete <strong>{{ center.name }}</strong> located at <strong>{{ center.location }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button class="add-center-btn" type="submit">Yes, delete</button>
+    <a href="{% url 'testcenter_mgmt:test_center_dashboard' %}">Back</a>
+      <button class="edit-btn" type="button">Cancel</button>
+    </a>
+  </form>
+</div>
+{% endblock %}
+

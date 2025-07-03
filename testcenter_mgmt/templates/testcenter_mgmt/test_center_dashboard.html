@@ -4,7 +4,7 @@
 {% block title %}Test Manager Dashboard{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'testcentre_mgmt/dashboardstyle.css' %}">
+<link rel="stylesheet" href="{% static 'testcenter_mgmt/dashboardstyle.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,42 +13,42 @@
     <h1>Test Manager Dashboard</h1>
   </div>
 
-  <h2>Test Centre Configuration</h2>
+  <h2>Test Center Configuration</h2>
 
   <table>
     <thead>
       <tr>
-        <th>Test Centre</th>
+        <th>Test Center</th>
         <th>Location</th>
         <th>Capacity</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      {% for centre in centres %}
+      {% for center in centers %}
       <tr>
-        <td>{{ centre.name }}</td>
-        <td>{{ centre.location }}</td>
-        <td>{{ centre.capacity }}</td>
+        <td>{{ center.name }}</td>
+        <td>{{ center.location }}</td>
+        <td>{{ center.capacity }}</td>
         <td>
-          <a href="{% url 'testcentre_mgmt:edit_test_centre' centre.pk %}">
+          <a href="{% url 'testcenter_mgmt:edit_test_center' center.pk %}">
             <button class="edit-btn">Edit</button>
           </a>
-          <a href="{% url 'testcentre_mgmt:delete_test_centre' centre.pk %}">
+          <a href="{% url 'testcenter_mgmt:delete_test_center' center.pk %}">
             <button class="edit-btn">Delete</button>
           </a>
         </td>
       </tr>
       {% empty %}
       <tr>
-        <td colspan="4">No test centres available.</td>
+        <td colspan="4">No test centers available.</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  <a href="{% url 'testcentre_mgmt:add_test_centre' %}">
-    <button class="add-centre-btn">Add new centre</button>
+  <a href="{% url 'testcenter_mgmt:add_test_center' %}">
+    <button class="add-center-btn">Add new center</button>
   </a>
 </div>
 {% endblock %}

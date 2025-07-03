@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'testcentre_mgmt',  
+    'testcenter_mgmt',  
     'booking',  
     'payment',  
     'core',      

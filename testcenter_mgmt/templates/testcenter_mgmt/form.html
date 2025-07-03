@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'testcentre_mgmt/dashboardstyle.css' %}">
+<link rel="stylesheet" href="{% static 'testcenter_mgmt/dashboardstyle.css' %}">
 
 <div class="dashboard-container">
   <div class="header">
     <h1>{{ title }}</h1>
     <div class="logo-container">
-      <img src="{% static 'testcentre_mgmt/images/logo.png' %}" alt="Logo" class="logo"/>
+      <img src="{% static 'testcenter_mgmt/images/logo.png' %}" alt="Logo" class="logo"/>
     </div>
   </div>
 
@@ -17,8 +17,8 @@
     <table>
       {{ form.as_table }}
     </table>
-    <button class="add-centre-btn" type="submit">Submit</button>
-    <a href="{% url 'testcentre_mgmt:test_centre_dashboard' %}">Back</a>
+    <button class="add-center-btn" type="submit">Submit</button>
+    <a href="{% url 'testcenter_mgmt:test_center_dashboard' %}">Back</a>
       <button class="edit-btn" type="button">Cancel</button>
     </a>
   </form>

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class TestCentre(models.Model):
+class TestCenter(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     capacity = models.PositiveIntegerField()

@@ -11,24 +11,10 @@ from .models import TestCenter
 from django.contrib.auth.decorators import login_required
 from .models import Booking
 from core.models import TestCenter, TestSlot
-
-@login_required
-def add_test_center(request):
-    if request.method == 'POST':
-        form = TestCenterForm(request.POST)
-        if form.is_valid():
-            test_centre = form.save(commit=False)
-            test_centre.manager = request.user  
-            test_centre.save()
-            return redirect('testcentre_mgmt:test_centre_dashboard')
-    else:
-        form = TestCenterForm()
-    return render(request, 'testcentre_mgmt/form.html', {'form': form, 'title': 'Add Test Centre'})
-
 from django.contrib.auth.models import User
 from .models import UserProfile
-
 from django.contrib.auth.models import User
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -66,7 +52,7 @@ def login_view(request):
         if role == 'admin':
             return redirect('/admin-dashboard/')
         elif role == 'manager':
-            return redirect('/testcentre/test-centres/')
+            return redirect('/testcenter/test-centers/')
         elif role == 'applicant':
             return redirect('/booking/')
         else:
