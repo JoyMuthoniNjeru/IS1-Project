@@ -1,50 +1,53 @@
-{%load static%}
-<!-- This is the template for the admin slot configuration page -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Slot Configuration</title>
-  <link rel="stylesheet" href="{% static 'core/adminstyles.css' %}">
-</head>
-<body>
-  <div class="dashboard-header">
-    <h1>Test Slot Configuration</h1>
-    <div class="logo-container">
-      <img src="{% static 'core/images/logo.png' %}" alt="NTSA Logo">
-    </div>
-  </div>
+{% extends 'base.html' %}
+{% load static %}
 
-  <div class="top-controls">
-    <a href="/admin-dashboard/">
-      <button class="primary-btn">Admin Dashboard</button>
+{% block title %}Slot Configuration{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/adminstyles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <div class="header">
+    <h1>Configure Test Slots</h1>
+    <a href="{% url 'add_slot' %}">
+      <button class="add-slot-btn">Add New Slot</button>
     </a>
   </div>
 
   <table class="data-table">
     <thead>
       <tr>
+        <th>Test Center</th>
         <th>Date</th>
         <th>Time</th>
-        <th>Max</th>
-        <th>Load</th>
-        <th>Status</th>
+        <th>Max Applicants</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
+      {% for slot in slots %}
       <tr>
-        <td colspan="6" class="placeholder">No slots configured yet</td>
+        <td>{{ slot.center.name }}</td>
+        <td>{{ slot.date }}</td>
+        <td>{{ slot.time }}</td>
+        <td>{{ slot.max_applicants }}</td>
+        <td>
+          <a href="{% url 'edit_slot' slot.pk %}">
+            <button class="edit-btn">Edit</button>
+          </a>
+          <a href="{% url 'delete_slot' slot.pk %}">
+            <button class="delete-btn">Delete</button>
+          </a>
+        </td>
       </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No slots have been configured yet.</td>
+      </tr>
+      {% endfor %}
     </tbody>
   </table>
-
-<div class="button-center">
-  <a href="{% url 'add_slot' %}">
-    <button class="primary-btn">Add New Slot</button>
-  </a>
 </div>
-
-</body>
-</html>
+{% endblock %}

@@ -12,7 +12,7 @@ def test_centre_dashboard(request):
     if request.user.userprofile.user_type == 'manager':
         centers = TestCentre.objects.filter(manager=request.user)
         return render(request, 'testcentre_mgmt/test_centre_dashboard.html', {
-            'centers': centers,
+            'centres': centers,
             'title': 'Your Test Centers'
         })
     return HttpResponse("Unauthorized", status=401)

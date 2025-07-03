@@ -6,6 +6,10 @@ class TestSlotForm(forms.ModelForm):
     class Meta:
         model = TestSlot
         fields = ['center', 'date', 'time', 'max_applicants']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
 
     def __init__(self, *args, **kwargs):
         manager_centers = kwargs.pop('manager_centers', None)

@@ -1,14 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import UserProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import TestSlotForm
+from .forms import TestSlot
 from .forms import TestCenterForm
 from .models import TestCenter
 from django.contrib.auth.decorators import login_required
 from .models import Booking
+from core.models import TestCenter, TestSlot
 
 @login_required
 def add_test_center(request):
@@ -16,7 +18,7 @@ def add_test_center(request):
         form = TestCenterForm(request.POST)
         if form.is_valid():
             test_centre = form.save(commit=False)
-            test_centre.manager = request.user  # 👈 auto-assign logged-in manager
+            test_centre.manager = request.user  
             test_centre.save()
             return redirect('testcentre_mgmt:test_centre_dashboard')
     else:
@@ -83,8 +85,10 @@ def admin_dashboard(request):
 
 @login_required
 def slot_configuration(request):
+    manager_centers = TestCenter.objects.exclude(manager__isnull=True).filter(manager__userprofile__user_type='manager')
 
-    manager_centers = TestCenter.objects.filter(manager__userprofile__user_type='manager')
+    centers = TestCenter.objects.filter(manager__userprofile__user_type='manager')
+    slots = TestSlot.objects.all()
     
     if request.method == 'POST':
         form = TestSlotForm(request.POST, manager_centers=manager_centers)
@@ -95,6 +99,7 @@ def slot_configuration(request):
     else:
         form = TestSlotForm(manager_centers=manager_centers)
 
+    slots = TestSlot.objects.all()
     return render(request, 'adminslotconfig.html', {'form': form})
 
 @login_required
@@ -111,6 +116,26 @@ def add_slot(request):
         form = TestSlotForm(manager_centers=manager_centers)
 
     return render(request, 'adminslotform.html', {'form': form, 'title': 'Add Test Slot'})
+
+@login_required
+def edit_slot(request, pk):
+    slot = get_object_or_404(TestSlot, pk=pk)
+    if request.method == 'POST':
+        form = TestSlotForm(request.POST, instance=slot)
+        if form.is_valid():
+            form.save()
+            return redirect('slot_configuration')
+    else:
+        form = TestSlotForm(instance=slot)
+    return render(request, 'adminslotform.html', {'form': form, 'title': 'Edit Test Slot'})
+
+@login_required
+def delete_slot(request, pk):
+    slot = get_object_or_404(TestSlot, pk=pk)
+    if request.method == 'POST':
+        slot.delete()
+        return redirect('slot_configuration')
+    return render(request, 'confirm_delete.html', {'slot': slot})
 
 def applicant_dashboard(request):
     return HttpResponse("Applicant Dashboard")
